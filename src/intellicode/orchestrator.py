@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Protocol
 
 from intellicode.agents import (
     DeveloperAgent,
@@ -17,12 +18,16 @@ from intellicode.rag import NullRetriever
 from intellicode.schemas import AgentTrace, GenerationResult, Problem, Review
 
 
+class Retriever(Protocol):
+    def retrieve(self, query: str, top_k: int = 3) -> str: ...
+
+
 class MultiAgentCodeGenerator:
     def __init__(
         self,
         backend: LLMBackend,
         prompt_file: str | Path,
-        retriever: object | None = None,
+        retriever: Retriever | None = None,
         max_repairs: int = 2,
         timeout_seconds: int = 8,
     ):
