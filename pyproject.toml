@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "intelligent-codegen"
+version = "1.0.0"
+description = "Multi-agent code generation with QLoRA, RAG, and HumanEval evaluation"
+requires-python = ">=3.10"
+dependencies = [
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "requests>=2.31",
+  "tqdm>=4.66"
+]
+
+[project.optional-dependencies]
+ml = [
+  "torch>=2.2",
+  "transformers>=4.45,<5",
+  "accelerate>=0.34",
+  "peft>=0.13",
+  "trl>=0.11",
+  "bitsandbytes>=0.43; platform_system == 'Linux'",
+  "datasets>=3.0"
+]
+rag = ["sentence-transformers>=3.0", "faiss-cpu>=1.8", "datasets>=3.0"]
+eval = ["evalplus>=0.3.1"]
+native = ["pybind11>=2.12"]
+dev = ["pytest>=8.2", "ruff>=0.6", "mypy>=1.11"]
+
+[project.scripts]
+intellicode = "intellicode.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
