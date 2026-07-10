@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from intellicode.llm.base import LLMBackend
 from intellicode.llm.mock_backend import MockBackend
 from intellicode.orchestrator import MultiAgentCodeGenerator
 from intellicode.rag import FaissRetriever, NullRetriever
@@ -16,6 +17,7 @@ def create_pipeline(
     mock: bool = False,
     max_repairs: int = 2,
 ) -> MultiAgentCodeGenerator:
+    backend: LLMBackend
     if mock:
         backend = MockBackend()
     else:

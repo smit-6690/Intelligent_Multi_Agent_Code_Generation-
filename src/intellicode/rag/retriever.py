@@ -2,12 +2,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import numpy as np
-
-
 class FaissRetriever:
     def __init__(self, directory: str | Path):
         import faiss
+        import numpy as np
         from sentence_transformers import SentenceTransformer
 
         directory = Path(directory)

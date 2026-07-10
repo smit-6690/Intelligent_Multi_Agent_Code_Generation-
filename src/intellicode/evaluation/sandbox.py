@@ -63,10 +63,13 @@ class LocalSandbox:
                     duration_seconds=time.perf_counter() - started,
                 )
             except subprocess.TimeoutExpired as error:
+                stdout = error.stdout or ""
+                if isinstance(stdout, bytes):
+                    stdout = stdout.decode("utf-8", errors="replace")
                 return TestReport(
                     passed=False,
                     stage=stage,
-                    stdout=(error.stdout or "")[-4000:],
+                    stdout=stdout[-4000:],
                     stderr="Execution timed out",
                     duration_seconds=time.perf_counter() - started,
                 )
