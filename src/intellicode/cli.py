@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 
 from intellicode.factory import create_pipeline
 from intellicode.schemas import Problem
